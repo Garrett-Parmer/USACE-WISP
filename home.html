@@ -7,7 +7,7 @@
 
 
     <link rel="stylesheet" href="css/icon-font.css">
-    <link rel="stylesheet" href="css/home_style.css">
+    <link rel="stylesheet" href="css/style.css">
 
 
     <title>United States Army Corps of Engineers | Water Information Sharing Program</title>
@@ -15,33 +15,68 @@
 
 <body>
 
-    <header>
+    <header class="header">
+        <div class="header__logo-box">
+            <img src="css/img/USACE-Logo.png" alt="Logo" class="header__logo">
+        </div>
 
+        <div class="header__text-box">
+            <h1 class="heading-primary">
+                <span class="heading-primary--main">U.S. Army Corps of Engineers</span>
+                <span class="heading-primary--sub">Water Information Sharing Project</span>
+            </h1>
+        </div>
     </header>
 
+    <section class="section-about">
+        <div class="u-center-text u-margin-bottom-big">
+            <h2 class="heading-secondary">About the Program</h2>
+        </div>
+        <div class="row">
+            <div class="col-1-of-2">
+                <h3 class="heading-tertiary">
+                    Giving you the information you need.
+                </h3>
+                <p class="paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, quod earum quasi
+                    tempora
+                    architecto quidem incidunt. Ipsam, et, ab fugiat voluptas aspernatur eos voluptatem atque mollitia
+                    repudiandae exercitationem soluta assumenda?</p>
+
+                <h3 class="heading-tertiary">
+                    Lakes across the nation.
+                </h3>
+                <p class="paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, quod earum quasi
+                    tempora
+                    architecto quidem incidunt. Ipsam, et, ab fugiat voluptas aspernatur eos voluptatem atque mollitia
+                    repudiandae exercitationem soluta assumenda?</p>
+            </div>
+            <div class="col-1-of-2">
+                <div class="composition">
+                    <img src="css/img/Family-Fishing.avif" alt="Photo 1"
+                        class="composition__photo composition__photo--p1">
+                    <img src="css/img/Fishing-Boat.avif" alt="Photo 2"
+                        class="composition__photo composition__photo--p2">
+                    <img src="css/img/Fishing-Waders.avif" alt="Photo 3"
+                        class="composition__photo composition__photo--p3">
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section class="section-lakesearch">
+        <div class="u-center-text u-margin-bottom-big">
+            <h2 class="heading-secondary">Find Your Lake Now!</h2>
+        </div>
+
+        <div class="u-center-text">
+            <input id="searchbar" onkeyup="search_script_placeholder()" type="text" name="search"
+                placeholder="Search lakes...">
+
+        </div>
+    </section>
+
     <main>
-        <script>
-            const xhr = new XMLHttpRequest();
-            const testLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2006051&p_source=CWMS&p_unit_system=EN&p_format=JSON";
-            
-            xhr.open("GET", testLink);
-     //  xhr.setRequestHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36");
-     //  xhr.setRequestHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
-     //  xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-     //  xhr.setRequestHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
-     //  xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token");
 
-            xhr.onload = function () {
-                console.log(xhr.response);
-            };
-
-            xhr.onerror = function () {
-                //handle errors
-                console.log("Error");
-            };
-            xhr.send();
-
-            </script>
     </main>
 
 
