@@ -17,27 +17,20 @@
 
     <main>
       <script>
-        const xhr = new XMLHttpRequest();
         const testLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
         const damLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON";
 
-        //  xhr.open("GET", testLink);
-        //  //xhr.setRequestHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36");
-        //  xhr.setRequestHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
-        //  xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
-        //  xhr.setRequestHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
-        //  xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token");
-
-        //  xhr.onload = function () {
-        //      console.log(xhr.response);
-        //  };
-
-        //  xhr.onerror = function () {
-        //      //handle errors
-        //      console.log("Error");
-        //  };
-        //  xhr.send();
+        //declare variables for data we will pull
+        var locationID;
+        var baseLocationID;
+        var latLon;
+        var drainageArea; 
+        var inFlow;
+        var outFlow;      
+        var chanCap;      
+        var elevation;    
+        var spillwayCrest;
 
         fetch(testLink)
           .then((response) => response.json())
@@ -46,15 +39,15 @@
             data = JSON.parse(data);
 
             // log each piece of data into variables
-            var locationID = data[0]['data'][0][0].trim();
-            var baseLocationID = data[0]['data'][0][1].trim();
-            var latLon = data[0]['data'][0][2].trim();
-            var drainageArea = data[0]['data'][0][3].trim();
-            var inFlow = data[0]['data'][0][4].trim();
-            var outFlow = data[0]['data'][0][5].trim();
-            var chanCap = data[0]['data'][0][6].trim();
-            var elevation = data[0]['data'][0][7].trim();
-            var spillwayCrest = data[0]['data'][0][8].trim();
+            locationID = data[0]['data'][0][0].trim();
+            baseLocationID = data[0]['data'][0][1].trim();
+            latLon = data[0]['data'][0][2].trim();
+            drainageArea = data[0]['data'][0][3].trim();
+            inFlow = data[0]['data'][0][4].trim();
+            outFlow = data[0]['data'][0][5].trim();
+            chanCap = data[0]['data'][0][6].trim();
+            elevation = data[0]['data'][0][7].trim();
+            spillwayCrest = data[0]['data'][0][8].trim();
 
             console.log(
               'Current water elevation at ',
@@ -64,6 +57,56 @@
             );
           });
 
+          //declare variables for data we will pull from dam link
+
+          var damElevation;
+          var dateAndTime;
+          var currentStorage;
+          var bottomConservationPool;
+          var bottomFlood;
+          var bottomNormal;
+          var damSpillwayCrest;
+          var streambed;
+          var topConservationPool;
+          var topDam;
+          var topFloodControlPool;
+          var topInactiveConservation;
+          var topNormal;
+          var topSurcharge;
+          var bottomFloodStorage;
+          var bottomNormalStorage;
+          var topConservationPoolStorage;
+          var topDamStorage;
+          var topFloodControlStorage;
+          var topInactiveConservationStorage;
+          var topSurchargeStorage;
+          var office;
+
+          var damData = 
+            {"damElevation" : "",
+            "dateAndTime" : "",
+            "currentStorage" : "",
+            "bottomConservationPool" : "",
+            "bottomFlood" : "",
+            "bottomNormal" : "",
+            "damSpillwayCrest" : "",
+            "streambed" : "",
+            "topConservationPool" : "",
+            "topDam" : "",
+            "topFloodControlPool" : "",
+            "topInactiveConservation" : "",
+            "topNormal" : "",
+            "topSurcharge" : "",
+            "bottomFloodStorage" : "",
+            "bottomNormalStorage" : "",
+            "topConservationPoolStorage" : "",
+            "topDamStorage" : "",
+            "topFloodControlStorage" : "",
+            "topInactiveConservationStorage" : "",
+            "topSurchargeStorage" : "", 
+          }
+          
+
           fetch(damLink)
           .then((response) => response.json())
           .then((data) => {
@@ -71,7 +114,15 @@
             data = JSON.parse(data);
 
             // log each piece of data into variables
-            
+
+            for (let i = 0; i < Object.keys(damData).length; ++i) {
+              damData[Object.keys(damData)[i]] = data[0]["data"][i][1];
+              
+
+            }
+
+            console.log(damData);
+                      
           });
       </script>
     </main>
