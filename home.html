@@ -20,6 +20,7 @@
         const xhr = new XMLHttpRequest();
         const testLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
+        const damLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON";
 
         //  xhr.open("GET", testLink);
         //  //xhr.setRequestHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36");
@@ -38,20 +39,39 @@
         //  };
         //  xhr.send();
 
-        console.log('hello world');
         fetch(testLink)
           .then((response) => response.json())
           .then((data) => {
             data = JSON.stringify(data);
             data = JSON.parse(data);
+
+            // log each piece of data into variables
+            var locationID = data[0]['data'][0][0].trim();
+            var baseLocationID = data[0]['data'][0][1].trim();
+            var latLon = data[0]['data'][0][2].trim();
+            var drainageArea = data[0]['data'][0][3].trim();
+            var inFlow = data[0]['data'][0][4].trim();
+            var outFlow = data[0]['data'][0][5].trim();
+            var chanCap = data[0]['data'][0][6].trim();
             var elevation = data[0]['data'][0][7].trim();
-            var lakeName = data[0]['data'][0][0].trim();
+            var spillwayCrest = data[0]['data'][0][8].trim();
+
             console.log(
               'Current water elevation at ',
-              lakeName,
+              locationID,
               ' is ',
               elevation
             );
+          });
+
+          fetch(damLink)
+          .then((response) => response.json())
+          .then((data) => {
+            data = JSON.stringify(data);
+            data = JSON.parse(data);
+
+            // log each piece of data into variables
+            
           });
       </script>
     </main>
