@@ -81,7 +81,9 @@
           var topInactiveConservationStorage;
           var topSurchargeStorage;
           var office;
-
+          
+          //testing
+          //create damData object to store data with its name
           var damData = 
             {"damElevation" : "",
             "dateAndTime" : "",
@@ -113,8 +115,7 @@
             data = JSON.stringify(data);
             data = JSON.parse(data);
 
-            // log each piece of data into variables
-
+            // iterates through object and assigns each key with value(lake data)
             for (let i = 0; i < Object.keys(damData).length; ++i) {
               damData[Object.keys(damData)[i]] = data[0]["data"][i][1];
               
