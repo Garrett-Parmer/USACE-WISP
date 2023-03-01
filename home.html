@@ -19,17 +19,18 @@
       <script>
         const testLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
-        const damLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON";
+        const damLink =
+          'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
 
         //declare variables for data we will pull
         var locationID;
         var baseLocationID;
         var latLon;
-        var drainageArea; 
+        var drainageArea;
         var inFlow;
-        var outFlow;      
-        var chanCap;      
-        var elevation;    
+        var outFlow;
+        var chanCap;
+        var elevation;
         var spillwayCrest;
 
         fetch(testLink)
@@ -50,66 +51,65 @@
             spillwayCrest = data[0]['data'][0][8].trim();
 
             console.log(
-              'Current water elevation at ',
+              'Current water elevation at',
               locationID,
-              ' is ',
+              'is',
               elevation
             );
           });
 
-          //declare variables for data we will pull from dam link
+        //declare variables for data we will pull from dam link
 
-          var damElevation;
-          var dateAndTime;
-          var currentStorage;
-          var bottomConservationPool;
-          var bottomFlood;
-          var bottomNormal;
-          var damSpillwayCrest;
-          var streambed;
-          var topConservationPool;
-          var topDam;
-          var topFloodControlPool;
-          var topInactiveConservation;
-          var topNormal;
-          var topSurcharge;
-          var bottomFloodStorage;
-          var bottomNormalStorage;
-          var topConservationPoolStorage;
-          var topDamStorage;
-          var topFloodControlStorage;
-          var topInactiveConservationStorage;
-          var topSurchargeStorage;
-          var office;
-          
-          //testing
-          //create damData object to store data with its name
-          var damData = 
-            {"damElevation" : "",
-            "dateAndTime" : "",
-            "currentStorage" : "",
-            "bottomConservationPool" : "",
-            "bottomFlood" : "",
-            "bottomNormal" : "",
-            "damSpillwayCrest" : "",
-            "streambed" : "",
-            "topConservationPool" : "",
-            "topDam" : "",
-            "topFloodControlPool" : "",
-            "topInactiveConservation" : "",
-            "topNormal" : "",
-            "topSurcharge" : "",
-            "bottomFloodStorage" : "",
-            "bottomNormalStorage" : "",
-            "topConservationPoolStorage" : "",
-            "topDamStorage" : "",
-            "topFloodControlStorage" : "",
-            "topInactiveConservationStorage" : "",
-            "topSurchargeStorage" : "", 
-          }
-          
+        var damElevation;
+        var dateAndTime;
+        var currentStorage;
+        var bottomConservationPool;
+        var bottomFlood;
+        var bottomNormal;
+        var damSpillwayCrest;
+        var streambed;
+        var topConservationPool;
+        var topDam;
+        var topFloodControlPool;
+        var topInactiveConservation;
+        var topNormal;
+        var topSurcharge;
+        var bottomFloodStorage;
+        var bottomNormalStorage;
+        var topConservationPoolStorage;
+        var topDamStorage;
+        var topFloodControlStorage;
+        var topInactiveConservationStorage;
+        var topSurchargeStorage;
+        var office;
 
-          fetch(damLink)
+        //testing
+        //create damData object to store data with its name
+        var damData = {
+          damElevation: '',
+          dateAndTime: '',
+          currentStorage: '',
+          bottomConservationPool: '',
+          bottomFlood: '',
+          bottomNormal: '',
+          damSpillwayCrest: '',
+          streambed: '',
+          topConservationPool: '',
+          topDam: '',
+          topFloodControlPool: '',
+          topInactiveConservation: '',
+          topNormal: '',
+          topSurcharge: '',
+          bottomFloodStorage: '',
+          bottomNormalStorage: '',
+          topConservationPoolStorage: '',
+          topDamStorage: '',
+          topFloodControlStorage: '',
+          topInactiveConservationStorage: '',
+          topSurchargeStorage: '',
+        };
+
+        fetch(damLink)
           .then((response) => response.json())
           .then((data) => {
             data = JSON.stringify(data);
@@ -117,13 +117,10 @@
 
             // iterates through object and assigns each key with value(lake data)
             for (let i = 0; i < Object.keys(damData).length; ++i) {
-              damData[Object.keys(damData)[i]] = data[0]["data"][i][1];
-              
-
+              damData[Object.keys(damData)[i]] = data[0]['data'][i][1];
             }
 
             console.log(damData);
-                      
           });
       </script>
     </main>
