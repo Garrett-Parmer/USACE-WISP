@@ -21,6 +21,7 @@
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
         const damLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
+        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=5&p_last_unit=days&p_unit_system=EN&p_format=JSON";
 
         //declare variables for data we will pull
         var locationID;
@@ -119,6 +120,22 @@
             for (let i = 0; i < Object.keys(damData).length; ++i) {
               damData[Object.keys(damData)[i]] = data[0]['data'][i][1];
             }
+
+            console.log(damData);
+          });
+
+
+          fetch(timeseriesLink)
+          .then((response) => response.json())
+          .then((data) => {
+            data = JSON.stringify(data);
+            data = JSON.parse(data);
+
+            for (let i = 0; i < data[0]["Elev"].length; ++i) {
+                console.log(data[0]["Elev"][i]);
+            }
+
+            
 
             console.log(damData);
           });
