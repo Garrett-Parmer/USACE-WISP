@@ -1,145 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- Styles -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 500px;
+}
+</style>
 
-    <link rel="stylesheet" href="css/icon-font.css" />
-    <link rel="stylesheet" href="css/home_style.css" />
+<!-- Resources -->
+<script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
+<script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
 
-    <title>
-      United States Army Corps of Engineers | Water Information Sharing Program
-    </title>
-  </head>
+<!-- Chart code -->
+<script>
+am5.ready(function() {
 
-  <body>
-    <header></header>
+// Create root and chart
+var root = am5.Root.new("chartdiv");
 
-    <main>
-      <script>
-        const testLink =
-          'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
-        const damLink =
-          'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
-        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=5&p_last_unit=days&p_unit_system=EN&p_format=JSON";
+root.setThemes([
+  am5themes_Animated.new(root)
+]);
 
-        //declare variables for data we will pull
-        var locationID;
-        var baseLocationID;
-        var latLon;
-        var drainageArea;
-        var inFlow;
-        var outFlow;
-        var chanCap;
-        var elevation;
-        var spillwayCrest;
+var chart = root.container.children.push(am5xy.XYChart.new(root, {
+  panX: true,
+  panY: true,
+  wheelY: "zoomX",
+  layout: root.verticalLayout,
+  pinchZoomX:true
+}));
 
-        fetch(testLink)
-          .then((response) => response.json())
-          .then((data) => {
-            data = JSON.stringify(data);
-            data = JSON.parse(data);
+// Create Y-axis
+var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
+  maxDeviation:1,
+  renderer: am5xy.AxisRendererY.new(root, {pan:"zoom"})
+}));
 
-            // log each piece of data into variables
-            locationID = data[0]['data'][0][0].trim();
-            baseLocationID = data[0]['data'][0][1].trim();
-            latLon = data[0]['data'][0][2].trim();
-            drainageArea = data[0]['data'][0][3].trim();
-            inFlow = data[0]['data'][0][4].trim();
-            outFlow = data[0]['data'][0][5].trim();
-            chanCap = data[0]['data'][0][6].trim();
-            elevation = data[0]['data'][0][7].trim();
-            spillwayCrest = data[0]['data'][0][8].trim();
+// Create X-Axis
+var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
+  groupData: true,
+  maxDeviation:0.5,
+  baseInterval: { timeUnit: "minute", count: 1 },
+  renderer: am5xy.AxisRendererX.new(root, {
+    minGridDistance: 50, pan:"zoom"
+  })
+}));
 
-            console.log(
-              'Current water elevation at',
-              locationID,
-              'is',
-              elevation
-            );
-          });
+// xAxis.get("dateFormats")["day"] = "MM/dd";
+// xAxis.get("periodChangeDateFormats")["day"] = "MMMM";
 
-        //declare variables for data we will pull from dam link
+// Generate random data
+function generateChartData() {
+  var chartData = [];
+  // current date
+  var firstDate = new Date();
+  // now set 500 minutes back
+  firstDate.setMinutes(firstDate.getDate() - 500, 0, 0);
 
-        var damElevation;
-        var dateAndTime;
-        var currentStorage;
-        var bottomConservationPool;
-        var bottomFlood;
-        var bottomNormal;
-        var damSpillwayCrest;
-        var streambed;
-        var topConservationPool;
-        var topDam;
-        var topFloodControlPool;
-        var topInactiveConservation;
-        var topNormal;
-        var topSurcharge;
-        var bottomFloodStorage;
-        var bottomNormalStorage;
-        var topConservationPoolStorage;
-        var topDamStorage;
-        var topFloodControlStorage;
-        var topInactiveConservationStorage;
-        var topSurchargeStorage;
-        var office;
+  // and generate 500 data items
+  var visits = 500;
+  for (var i = 0; i < 500; i++) {
+    var newDate = new Date(firstDate);
+    // each time we add one minute
+    newDate.setMinutes(newDate.getMinutes() + i);
+    // some random number
+    visits += Math.round((Math.random() < 0.5 ? 1 : -1) * Math.random() * 10);
+    // add data item to the array
+    chartData.push({
+      date: newDate.getTime(),
+      visits: visits
+    });
+  }
+  return chartData;
+}
+var data = generateChartData();
 
-        //testing
-        //create damData object to store data with its name
-        var damData = {
-          damElevation: '',
-          dateAndTime: '',
-          currentStorage: '',
-          bottomConservationPool: '',
-          bottomFlood: '',
-          bottomNormal: '',
-          damSpillwayCrest: '',
-          streambed: '',
-          topConservationPool: '',
-          topDam: '',
-          topFloodControlPool: '',
-          topInactiveConservation: '',
-          topNormal: '',
-          topSurcharge: '',
-          bottomFloodStorage: '',
-          bottomNormalStorage: '',
-          topConservationPoolStorage: '',
-          topDamStorage: '',
-          topFloodControlStorage: '',
-          topInactiveConservationStorage: '',
-          topSurchargeStorage: '',
-        };
+// Create series
+var series = chart.series.push(am5xy.LineSeries.new(root, {
+  name: "Series",
+  xAxis: xAxis,
+  yAxis: yAxis,
+  valueYField: "visits",
+  valueXField: "date",
+  tooltip: am5.Tooltip.new(root, {
+    pointerOrientation: "horizontal",
+    labelText: "[bold]{name}[/]\n{valueX.formatDate()}: {valueY}"
+  })
+}));
 
-        fetch(damLink)
-          .then((response) => response.json())
-          .then((data) => {
-            data = JSON.stringify(data);
-            data = JSON.parse(data);
+series.strokes.template.set("strokeWidth", 2);
+series.fills.template.setAll({
+  visible: true,
+  fillOpacity: 0.4
+});
 
-            // iterates through object and assigns each key with value(lake data)
-            for (let i = 0; i < Object.keys(damData).length; ++i) {
-              damData[Object.keys(damData)[i]] = data[0]['data'][i][1];
-            }
+series.data.setAll(data);
 
-            console.log(damData);
-          });
+// Pre-zoom X axis to last hour
+series.events.once("datavalidated", function(ev, target) {
+  var lastDate = new Date(data[data.length - 1].date);
+  var firstDate = new Date(lastDate.getTime() - 3600000);
+  xAxis.zoomToDates(firstDate, lastDate);
+})
+
+// Add cursor
+chart.set("cursor", am5xy.XYCursor.new(root, {
+  behavior: "none",
+  xAxis: xAxis
+}));
+
+xAxis.set("tooltip", am5.Tooltip.new(root, {}));
+
+yAxis.set("tooltip", am5.Tooltip.new(root, {}));
 
 
-          fetch(timeseriesLink)
-          .then((response) => response.json())
-          .then((data) => {
-            data = JSON.stringify(data);
-            data = JSON.parse(data);
+var scrollbarX = am5xy.XYChartScrollbar.new(root, {
+  orientation: "horizontal",
+  height: 50
+});
 
-            for (let i = 0; i < data[0]["Elev"].length; ++i) {
-                console.log(data[0]["Elev"][i]);
-            }
+chart.set("scrollbarX", scrollbarX);
 
-            
+var sbxAxis = scrollbarX.chart.xAxes.push(am5xy.DateAxis.new(root, {
+  baseInterval: { timeUnit: "minute", count: 1 },
+  renderer: am5xy.AxisRendererX.new(root, {
+    opposite: false,
+    strokeOpacity: 0
+  })
+}));
 
-            console.log(damData);
-          });
-      </script>
-    </main>
-  </body>
-</html>
+var sbyAxis = scrollbarX.chart.yAxes.push(am5xy.ValueAxis.new(root, {
+  renderer: am5xy.AxisRendererY.new(root, {})
+}));
+
+var sbseries = scrollbarX.chart.series.push(am5xy.LineSeries.new(root, {
+  xAxis: sbxAxis,
+  yAxis: sbyAxis,
+  valueYField: "visits",
+  valueXField: "date"
+}));
+sbseries.data.setAll(data);
+
+}); // end am5.ready()
+</script>
+
+<!-- HTML -->
+<div id="chartdiv"></div>
