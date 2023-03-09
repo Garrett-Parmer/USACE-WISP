@@ -30,7 +30,7 @@
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
         const damLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
-        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=5&p_last_unit=days&p_unit_system=EN&p_format=JSON";
+        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=1&p_last_unit=months&p_unit_system=EN&p_format=JSON";
 
         //declare variables for data we will pull
         var locationID;
@@ -146,8 +146,8 @@
                 console.log(data[0]["Elev"][i]["value"]);
                 chartData.push(data[0]["Elev"][i]["value"]);
                 dates.push(data[0]["Elev"][i]["time"])
-            }
 
+            }
             const ctx = document.getElementById('myChart');
   
     new Chart(ctx, {
@@ -176,6 +176,9 @@
     zoom: {
         enabled: true,
         mode: 'xy',
+        speed: 1,
+    threshold: 0,
+    sensitivity: 0
     },
         scales: {
           y: {
