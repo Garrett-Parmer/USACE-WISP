@@ -139,16 +139,19 @@
           .then((data) => {
             var chartData = [];
             var dates = [];
+            var outflow = [];
             data = JSON.stringify(data);
             data = JSON.parse(data);
 
             for (let i = 0; i < data[0]["Elev"].length; ++i) {
                 console.log(data[0]["Elev"][i]["value"]);
                 chartData.push(data[0]["Elev"][i]["value"]);
-                dates.push(data[0]["Elev"][i]["time"])
+                dates.push(data[0]["Elev"][i]["time"]);
+                outflow.push(data[2]["Outflow"][i]["value"]);
 
             }
             const ctx = document.getElementById('myChart');
+            var test = [1, 2 ,3];
   
     new Chart(ctx, {
       type: 'line',
@@ -156,18 +159,28 @@
         labels: dates,
         datasets: [{
           label: 'Water Elevation (ft)',
+          ID: 'y1',
           data: chartData,
           borderWidth: 2,
           borderColor: "#808080",
           backgroundColor: "#89CFF0",
 
-        }]
+        },
+        {
+            type: 'line',
+            label: 'Outflow',
+            ID: 'y2',
+            data: outflow,
+       }
+    ]
       },
       options: {
+        responsive: true,
         title: {
         display: true,
         text: "Water Elevation at Lake Texoma"
-      }
+      
+
     ,
     pan: {
         enabled: true,
@@ -181,12 +194,22 @@
     sensitivity: 0
     },
         scales: {
-          y: {
-            beginAtZero: true
+          y1: {
+            type: 'linear',
+            position: 'left',
+            display: true
           },
+          y2: {
+            type: 'linear',
+            position: 'right',
+            display: true,
+           
+          
+          }
+
         }
       }
-          });
+          }});
             
 
             console.log(damData);
