@@ -7,12 +7,11 @@
 
     <link rel="stylesheet" href="css/icon-font.css" />
     <link rel="stylesheet" href="css/home_style.css" />
-
     <title>
       United States Army Corps of Engineers | Water Information Sharing Program
     </title>
   </head>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <body>
     <header></header>
 
@@ -129,178 +128,55 @@
           fetch(timeseriesLink)
           .then((response) => response.json())
           .then((data) => {
+            var chartData = [];
+            var dates = [];
             data = JSON.stringify(data);
             data = JSON.parse(data);
 
             for (let i = 0; i < data[0]["Elev"].length; ++i) {
-                console.log(data[0]["Elev"][i]);
+                console.log(data[0]["Elev"][i]["value"]);
+                chartData.push(data[0]["Elev"][i]["value"]);
+                dates.push(data[0]["Elev"][i]["time"])
             }
 
+            const ctx = document.getElementById('myChart');
+  
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'Water Elevation (ft)',
+          data: chartData,
+          borderWidth: 1
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          },
+        }
+      }
+    });
             
 
             console.log(damData);
           });
       </script>
+
+<div>
+    <canvas id="myChart"></canvas>
+  </div>
+  
+ 
+  
+  <script>
+    
+  </script>
+   
     </main>
+   
+      </div>
   </body>
 </html>
-
-<style>
-    #chartdiv {
-      width: 100%;
-      height: 500px;
-    }
-    </style>
-    
-    <!-- Resources -->
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/xy.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    
-    <!-- Chart code -->
-    <script>
-    am5.ready(function() {
-    
-    // Create root and chart
-    var root = am5.Root.new("chartdiv");
-    
-    root.setThemes([
-      am5themes_Animated.new(root)
-    ]);
-    
-    var chart = root.container.children.push(am5xy.XYChart.new(root, {
-      panX: true,
-      panY: true,
-      wheelY: "zoomX",
-      layout: root.verticalLayout,
-      pinchZoomX:true
-    }));
-    
-    // Create Y-axis
-    var yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, {
-      maxDeviation:1,
-      renderer: am5xy.AxisRendererY.new(root, {pan:"zoom"})
-    }));
-    
-    // Create X-Axis
-    var xAxis = chart.xAxes.push(am5xy.DateAxis.new(root, {
-      groupData: true,
-      maxDeviation:0.5,
-      baseInterval: { timeUnit: "minute", count: 1 },
-      renderer: am5xy.AxisRendererX.new(root, {
-        minGridDistance: 50, pan:"zoom"
-      })
-    }));
-    
-    // xAxis.get("dateFormats")["day"] = "MM/dd";
-    // xAxis.get("periodChangeDateFormats")["day"] = "MMMM";
-    
-    // Generate random data
-    function generateChartData() {
-      var chartData = [];
-      fetch(timeseriesLink)
-          .then((response) => response.json())
-          .then((data) => {
-            data = JSON.stringify(data);
-            data = JSON.parse(data);
-
-            for (let i = 0; i < data[0]["Elev"].length; ++i) {
-                chartData[i]([0]["Elev"][i]["value"]);
-            }
-        });
-      // current date
-      var firstDate = new Date();
-      // now set 500 minutes back
-      firstDate.setMinutes(firstDate.getDate() - 100, 0, 0);
-    
-      // and generate 500 data items
-      var visits = 500;
-      visits = chartData
-        console.log("Chart Data",chartData);
-        console.log(visits);
-      for (var i = 0; i < 500; i++) {
-        var newDate = new Date(firstDate);
-        // each time we add one minute
-        newDate.setMinutes(newDate.getMinutes() + i);
-        // some random number
-        // add data item to the array
-        chartData.push({
-         date: newDate.getTime(),
-         // visits: visits
-        });
-      }
-      return chartData;
-    }
-    var data = generateChartData();
-    
-    // Create series
-    var series = chart.series.push(am5xy.LineSeries.new(root, {
-      name: "Series",
-      xAxis: xAxis,
-      yAxis: yAxis,
-      valueYField: "visits",
-      valueXField: "date",
-      tooltip: am5.Tooltip.new(root, {
-        pointerOrientation: "horizontal",
-        labelText: "[bold]{name}[/]\n{valueX.formatDate()}: {valueY}"
-      })
-    }));
-    
-    series.strokes.template.set("strokeWidth", 2);
-    series.fills.template.setAll({
-      visible: true,
-      fillOpacity: 0.4
-    });
-    
-    series.data.setAll(data);
-    
-    // Pre-zoom X axis to last hour
-    series.events.once("datavalidated", function(ev, target) {
-      var lastDate = new Date(data[data.length - 1].date);
-      var firstDate = new Date(lastDate.getTime() - 3600000);
-      xAxis.zoomToDates(firstDate, lastDate);
-    })
-    
-    // Add cursor
-    chart.set("cursor", am5xy.XYCursor.new(root, {
-      behavior: "none",
-      xAxis: xAxis
-    }));
-    
-    xAxis.set("tooltip", am5.Tooltip.new(root, {}));
-    
-    yAxis.set("tooltip", am5.Tooltip.new(root, {}));
-    
-    
-    var scrollbarX = am5xy.XYChartScrollbar.new(root, {
-      orientation: "horizontal",
-      height: 50
-    });
-    
-    chart.set("scrollbarX", scrollbarX);
-    
-    var sbxAxis = scrollbarX.chart.xAxes.push(am5xy.DateAxis.new(root, {
-      baseInterval: { timeUnit: "minute", count: 1 },
-      renderer: am5xy.AxisRendererX.new(root, {
-        opposite: false,
-        strokeOpacity: 0
-      })
-    }));
-    
-    var sbyAxis = scrollbarX.chart.yAxes.push(am5xy.ValueAxis.new(root, {
-      renderer: am5xy.AxisRendererY.new(root, {})
-    }));
-    
-    var sbseries = scrollbarX.chart.series.push(am5xy.LineSeries.new(root, {
-      xAxis: sbxAxis,
-      yAxis: sbyAxis,
-      valueYField: "visits",
-      valueXField: "date"
-    }));
-    sbseries.data.setAll(data);
-    
-    }); // end am5.ready()
-    </script>
-    
-    <!-- HTML -->
-    <div id="chartdiv"></div>
