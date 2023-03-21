@@ -34,7 +34,7 @@
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
         const damLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
-        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=1&p_last_unit=months&p_unit_system=EN&p_format=JSON";
+        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=3&p_last_unit=weeks&p_unit_system=EN&p_format=JSON";
 
         //declare variables for data we will pull
         var locationID;
@@ -183,9 +183,12 @@
         title: {
         display: true,
         text: "Water Elevation at Lake Texoma"
-        }
+        },
 
-    ,
+        plugins: {
+      decimation: decimation,
+    },
+
     pan: {
         enabled: true,
         mode: 'xy'
@@ -201,15 +204,28 @@
           y1: {
             type: 'linear',
             position: 'left',
-            display: true
+            display: true,
+            ticks: {
+          source: 'auto',
+          autoSkip: true,
+        }
           },
           y2: {
             type: 'linear',
             position: 'right',
             display: true,
+            ticks: {
+          source: 'auto',
+          autoSkip: true,
+        }
            
           
-          }
+          },
+          x: {ticks: {
+        autoSkip: true,
+        maxTicksLimit: 5
+    }
+  }
 
         }
       }
