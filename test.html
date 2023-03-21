@@ -163,6 +163,7 @@
             console.log("normal level: ", normalLevel);
             const ctx = document.getElementById('myChart');
             var test = [1, 2 ,3];
+            var minScale = normalLevel[0] -2;
   
       elevationChart = new Chart(ctx, {
       type: 'line',
@@ -202,6 +203,15 @@
       //decimation: decimation,
     },
 
+    scales: {
+            xAxes: [{
+                ticks: {
+                    display: false //this will remove only the label
+                }
+            }],
+            
+        },
+
     pan: {
         enabled: true,
         mode: 'xy'
@@ -231,11 +241,12 @@
 
 <div>
 
-    <canvas id="myChart"></canvas>
-    <canvas id="myChart2"></canvas>
+  <canvas id="myChart"></canvas>
 
     <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
   </div>
+
+  
   
  
   
