@@ -151,7 +151,7 @@
                 console.log(data[0]["Elev"][i]["value"]);
                 chartData.push(data[0]["Elev"][i]["value"]);
                 dates.push(data[0]["Elev"][i]["time"]);
-                outflow.push(data[2]["Outflow"][i]["value"]);
+              //  outflow.push(data[2]["Outflow"][i]["value"]);
 
             }
             const ctx = document.getElementById('myChart');
@@ -171,10 +171,10 @@
 
         },
         {
-            type: 'line',
-            label: 'Outflow',
-            yAxisID: 'y2',
-            data: outflow,
+           // type: 'line',
+           // label: 'Outflow',
+           // yAxisID: 'y2',
+           // data: outflow,
        }
     ]
       },
@@ -186,7 +186,7 @@
         },
 
         plugins: {
-      decimation: decimation,
+      //decimation: decimation,
     },
 
     pan: {
@@ -223,7 +223,7 @@
           },
           x: {ticks: {
         autoSkip: true,
-        maxTicksLimit: 5
+        maxTicksLimit: 10
     }
   }
 
