@@ -21,6 +21,9 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
 <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
 
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
@@ -34,7 +37,7 @@
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
         const damLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
-        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=3&p_last_unit=weeks&p_unit_system=EN&p_format=JSON";
+        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=1&p_last_unit=months&p_unit_system=EN&p_format=JSON";
 
         //declare variables for data we will pull
         var locationID;
@@ -123,6 +126,8 @@
           topSurchargeStorage: '',
         };
 
+        var elevationChart;
+
         fetch(damLink)
           .then((response) => response.json())
           .then((data) => {
@@ -144,6 +149,7 @@
             var chartData = [];
             var dates = [];
             var outflow = [];
+            var normalLevel = [];
             data = JSON.stringify(data);
             data = JSON.parse(data);
 
@@ -151,19 +157,20 @@
                 console.log(data[0]["Elev"][i]["value"]);
                 chartData.push(data[0]["Elev"][i]["value"]);
                 dates.push(data[0]["Elev"][i]["time"]);
-              //  outflow.push(data[2]["Outflow"][i]["value"]);
-
+                //outflow.push(data[2]["Outflow"][i]["value"]);
+                normalLevel.push(damData['topNormal'].replace(" ft", ""));
             }
+            console.log("normal level: ", normalLevel);
             const ctx = document.getElementById('myChart');
             var test = [1, 2 ,3];
   
-    new Chart(ctx, {
+      elevationChart = new Chart(ctx, {
       type: 'line',
       data: {
         labels: dates,
         datasets: [{
           label: 'Water Elevation (ft)',
-          yAxisID: 'y1',
+          //yAxisID: 'y1',
           data: chartData,
           borderWidth: 2,
           borderColor: "#808080",
@@ -171,10 +178,10 @@
 
         },
         {
-           // type: 'line',
-           // label: 'Outflow',
-           // yAxisID: 'y2',
-           // data: outflow,
+            type: 'line',
+            label: 'Normal Level',
+            //yAxisID: 'y2',
+            data: normalLevel,
        }
     ]
       },
@@ -182,7 +189,8 @@
         responsive: true,
         title: {
         display: true,
-        text: "Water Elevation at Lake Texoma"
+        text: "Water Elevation at Lake Texoma",
+
         },
 
         plugins: {
@@ -197,47 +205,31 @@
         enabled: true,
         mode: 'xy',
         speed: 1,
-    threshold: 0,
-    sensitivity: 0
+    threshold: 1,
+    sensitivity: 1
     },
-        scales: {
-          y1: {
-            type: 'linear',
-            position: 'left',
-            display: true,
-            ticks: {
-          source: 'auto',
-          autoSkip: true,
-        }
-          },
-          y2: {
-            type: 'linear',
-            position: 'right',
-            display: true,
-            ticks: {
-          source: 'auto',
-          autoSkip: true,
-        }
-           
-          
-          },
-          x: {ticks: {
-        autoSkip: true,
-        maxTicksLimit: 10
-    }
-  }
-
-        }
       }
+
+
           });
             
-
+          
             console.log(damData);
+
+            resetZoomBtn = (elevationChart) => {
+  
+  elevationChart.resetZoom()
+  
+};
         });
       </script>
 
 <div>
+
     <canvas id="myChart"></canvas>
+    <canvas id="myChart2"></canvas>
+
+    <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
   </div>
   
  
