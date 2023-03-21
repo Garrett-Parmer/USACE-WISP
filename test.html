@@ -21,20 +21,31 @@
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
 <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
 
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+<link rel="stylesheet" type="text/css" href="styles.css">
+
   <body>
     <header></header>
 
     <main>
+      <div class="chartWrapper">
+        <div class="chartContainer">
+            <canvas id="chart"></canvas>
+        </div>
+    </div>
+         <canvas id="axis-Test" height="300" width="0"></canvas>
+    </div>
       <script>
         const testLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
         const damLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
-        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=1&p_last_unit=months&p_unit_system=EN&p_format=JSON";
+        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=6&p_last_unit=months&p_unit_system=EN&p_format=JSON";
 
         //declare variables for data we will pull
         var locationID;
@@ -157,71 +168,67 @@
             const ctx = document.getElementById('myChart');
             var test = [1, 2 ,3];
   
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: dates,
-        datasets: [{
-          label: 'Water Elevation (ft)',
-          yAxisID: 'y1',
-          data: chartData,
-          borderWidth: 2,
-          borderColor: "#808080",
-          backgroundColor: "#89CFF0",
-
-        },
-        {
-            type: 'line',
-            label: 'Outflow',
-            yAxisID: 'y2',
-            data: outflow,
-       }
-    ]
-      },
-      options: {
-        responsive: true,
-        title: {
-        display: true,
-        text: "Water Elevation at Lake Texoma"
-        }
-
-    ,
-    pan: {
-        enabled: true,
-        mode: 'xy'
-    },
-    zoom: {
-        enabled: true,
-        mode: 'xy',
-        speed: 1,
-    threshold: 0,
-    sensitivity: 0
-    },
-        scales: {
-          y1: {
-            type: 'linear',
-            position: 'left',
-            display: true
-          },
-          y2: {
-            type: 'linear',
-            position: 'right',
-            display: true,
-           
-          
-          }
-
-        }
-      }
-          });
             
 
             console.log(damData);
+
+            var xValues1 = dates;
+            var yValues1 = chartData;
+
+//var xValues2 = [54,64,74,84,94,104,114,124,134,144,154];
+//var yValues2 = [8,9,9,10,10,10,11,12,15,15,16];
+var xAxisLabelMinWidth = 15; // Replace this with whatever value you like
+
+var myChart = new Chart(document.getElementById('chart').getContext('2d'), {
+  type: "line",
+  maintainAspectRatio: false,
+  responsive: true,
+  data: {
+    labels: xValues1,
+    datasets: [{
+      fill: false,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      data: yValues1
+    },
+    {
+      fill: false,
+      backgroundColor: "rgba(0,0,255,1.0)",
+      borderColor: "rgba(0,0,255,0.1)",
+      //data: yValues2
+    }
+    ]
+  },
+  options: {
+    legend: {display: false},
+    responsive: true,
+    scales: {
+      //yAxes: [{ticks: {min: 6, max:16}}],
+    }
+  }
+});
+
+
+function fitChart(){
+    var chartCanvas = document.getElementById('chart');
+    var maxWidth = chartCanvas.parentElement.parentElement.clientWidth;
+    var width = Math.max(mayChart.data.labels.length * xAxisLabelMinWidth, maxWidth);
+
+    chartCanvas.parentElement.style.width = width +'px';
+}
+fitChart();
+            
         });
+
+
+
+
       </script>
 
 <div>
     <canvas id="myChart"></canvas>
+    <canvas id="Chart1" height="600" width="300"></canvas>
+
   </div>
   
  
