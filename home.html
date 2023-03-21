@@ -34,6 +34,38 @@
         var elevation;
         var spillwayCrest;
 
+        class HashTable{
+          constructor(){
+            this.values = {};
+            this.length = 0;
+            this.size = 0;
+          }
+
+          calculateHash(key){
+            return key.toString().length % this.size;
+          }
+
+          add(key, value){
+            const hash = this.calculateHash(key);
+            if (!this.values.hasOwnProperty(hash)){
+              this.values[hash] = {};
+            }
+            if (!this.values[hash].hasOwnProperty(key)) {
+              this.length++;
+            }
+            this.values[hash][key] = value;
+            }
+
+            search(key) {
+              const hash = this.calculateHash(key);
+              if (this.values.hasOwnProperty(hash) && this.values[hash].hasOwnProperty(key)) {
+                return this.values[hash][key];
+              } else {
+                return null;
+              }
+            }
+        }
+
         fetch(testLink)
           .then((response) => response.json())
           .then((data) => {
@@ -51,12 +83,12 @@
             elevation = data[0]['data'][0][7].trim();
             spillwayCrest = data[0]['data'][0][8].trim();
 
-            console.log(
-              'Current water elevation at',
-              locationID,
-              'is',
-              elevation
-            );
+            // console.log(
+            //   'Current water elevation at',
+            //   locationID,
+            //   'is',
+            //   elevation
+            // );
           });
 
         //declare variables for data we will pull from dam link
@@ -121,24 +153,31 @@
               damData[Object.keys(damData)[i]] = data[0]['data'][i][1];
             }
 
-            console.log(damData);
+            //console.log(damData);
           });
-
 
           fetch(timeseriesLink)
           .then((response) => response.json())
           .then((data) => {
             data = JSON.stringify(data);
             data = JSON.parse(data);
+            const elevationHash = new HashTable();
+
 
             for (let i = 0; i < data[0]["Elev"].length; ++i) {
-                console.log(data[0]["Elev"][i]);
+                //console.log(data[0]["Elev"][i]);
+                elevationHash.add(data[0]["Elev"][i]["time"], data[0]["Elev"][i]["value"]);
+
             }
+
+            console.log(elevationHash.search("14-Mar-2023 10:00:00"))
 
             
 
-            console.log(damData);
+            //console.log(damData);
           });
+
+
       </script>
     </main>
   </body>
