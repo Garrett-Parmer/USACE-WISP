@@ -32,6 +32,8 @@
     <header></header>
 
     <main>
+
+      
       <script>
         const testLink =
           'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
@@ -236,8 +238,7 @@
 
 
           });
-
-          elevationChart = new Chart(inflowOutflow, {
+      elevationChart = new Chart(inflowOutflow, {
       type: 'line',
       data: {
         labels: dates,
@@ -268,14 +269,10 @@
         text: "Water Flow at Lake Texoma",
 
         },
-
-
-
         plugins: {
       //decimation: decimation,
     },
-
-    scales: {
+        scales: {
             xAxes: [{
                 ticks: {
                     display: false //this will remove only the label
@@ -283,12 +280,11 @@
             }],
             
         },
-
-    pan: {
+        pan: {
         enabled: true,
         mode: 'xy'
     },
-    zoom: {
+        zoom: {
         enabled: false,
         mode: 'xy',
         speed: 1,
@@ -296,25 +292,16 @@
     sensitivity: 1
     },
       }
-
-
-          });
-            
-          
-            console.log(damData);
-
-            resetZoomBtn = (elevationChart) => {
-  
-  elevationChart.resetZoom()
-  
+          });      
+      console.log(damData);
+      resetZoomBtn = (elevationChart) => {
+      elevationChart.resetZoom()
 };
-        });
+});
       </script>
 
 <div style="width: 50%; height: 50%;">
-
   <canvas id="myChart"></canvas>
-
     <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
   </div>
 
@@ -330,11 +317,8 @@
  
   
   <script>
-    
   </script>
-   
     </main>
-   
       </div>
   </body>
 </html>
