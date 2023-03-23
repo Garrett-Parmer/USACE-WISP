@@ -205,15 +205,10 @@
         title: {
         display: true,
         text: "Water Elevation at Lake Texoma",
-
         },
-
-
-
         plugins: {
       //decimation: decimation,
     },
-
     scales: {
             xAxes: [{
                 ticks: {
@@ -222,7 +217,6 @@
             }],
             
         },
-
     pan: {
         enabled: true,
         mode: 'xy'
@@ -233,11 +227,7 @@
         speed: 1,
     threshold: 1,
     sensitivity: 1
-    },
-      }
-
-
-          });
+    },}});
       elevationChart = new Chart(inflowOutflow, {
       type: 'line',
       data: {
@@ -294,6 +284,7 @@
       }
           });      
       console.log(damData);
+
       resetZoomBtn = (elevationChart) => {
       elevationChart.resetZoom()
 };
@@ -306,9 +297,7 @@
   </div>
 
   <div style="width: 50%; height: 50%;">
-
     <canvas id="myOtherChart"></canvas>
-  
       <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
     </div>
 
