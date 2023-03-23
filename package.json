@@ -1,14 +1,21 @@
 {
-  "name": "natours",
+  "name": "water-information-sharing-program",
   "version": "1.0.0",
-  "description": "Landing page for natours",
-  "main": "index.js",
+  "description": "Water information sharing program developed to disseminate information about the United State's many water sources to the public in a user-friendly format.",
+  "main": "home.js",
   "scripts": {
     "compile:sass": "node-sass sass/main.scss css/style.css -w"
   },
+  "keywords": [
+    "SCSS",
+    "CSS",
+    "HTML"
+  ],
   "author": "Garrett Parmer",
   "license": "ISC",
-  "devDependencies": {
-    "node-sass": "^7.0.3"
+  "dependencies": {
+    "@amcharts/amcharts5": "^5.3.6",
+    "@amcharts/amcharts5-geodata": "^5.1.0",
+    "node-sass": "^8.0.0"
   }
 }
