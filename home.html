@@ -424,6 +424,9 @@
       }
           });      
       console.log(damData);
+      var element = document.querySelector('div.card__details li');
+      element.textContent = chartData.pop() + " ft";
+
 
       resetZoomBtn = (elevationChart) => {
       elevationChart.resetZoom()
