@@ -1,7 +1,14 @@
-//Colors
-$color-primary-light: #fc031c;
-$color-primary-medium: #96000f;
-$color-primary-dark: #520109;
+// Colors
+
+$color-primary: #55c57a;
+$color-primary-light: #7ed56f;
+$color-primary-dark: #28b485;
+
+$color-secondary-light: #ffb900;
+$color-secondary-dark: #ff7730;
+
+$color-tertiary-light: #2998ff;
+$color-tertiary-dark: #5643fa;
 
 $color-grey-light-1: #f7f7f7;
 $color-grey-light-2: #eee;
@@ -10,8 +17,9 @@ $color-grey-dark: #777;
 $color-grey-dark-2: #999;
 $color-grey-dark-3: #333;
 
-$color-white: #FFFFFF;
-$color-black: #000000;
+$color-white: #fff;
+$color-black: #000;
+
 
 //Grid variables
 $grid-width: 110rem;
