@@ -77,14 +77,16 @@
     <section class="graphs">
         <div class="row">
             <div class="col-1-of-2">
-                <div class="graphs__graph--1">
-                    <img src="/css/img/meme2.jpg" alt="">
+                <div style="width: 100%; height: 100%;">
+                    <canvas id="myChart"></canvas>
+                    <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
                 </div>
 
             </div>
             <div class="col-1-of-2">
-                <div class="graphs__graph--2">
-                    <img src="/css/img/meme1.jpg" alt="">
+                <div style="width: 100%; height: 100%;">
+                    <canvas id="myOtherChart"></canvas>
+                    <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
                 </div>
             </div>
         </div>
@@ -104,7 +106,7 @@
                             <ul>
                                 <li>####</li>
                                 <li>(Mean Sea Level)</li>
-                                <li id="leftDate">Date/Time</li>
+                                <li>Date/Time</li>
                             </ul>
                         </div>
                     </div>
@@ -133,7 +135,7 @@
                             <ul>
                                 <li>####</li>
                                 <li>(Cubic Feet/second)</li>
-                                <li>Time</li>
+                                <li>Date/Time</li>
                             </ul>
                         </div>
                     </div>
@@ -151,30 +153,30 @@
     </section>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
-<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
-<script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
-<script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
+    <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
 
 
-<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
 
 
-      
-      <script>
+
+    <script>
         const testLink =
-          'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
+            'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
         const damLink =
-          'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
+            'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
         const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=1&p_last_unit=months&p_unit_system=EN&p_format=JSON";
 
         //declare variables for data we will pull
@@ -189,29 +191,29 @@
         var spillwayCrest;
 
         fetch(testLink)
-          .then((response) => response.json())
-          .then((data) => {
-            data = JSON.stringify(data);
-            data = JSON.parse(data);
+            .then((response) => response.json())
+            .then((data) => {
+                data = JSON.stringify(data);
+                data = JSON.parse(data);
 
-            // log each piece of data into variables
-            locationID = data[0]['data'][0][0].trim();
-            baseLocationID = data[0]['data'][0][1].trim();
-            latLon = data[0]['data'][0][2].trim();
-            drainageArea = data[0]['data'][0][3].trim();
-            inFlow = data[0]['data'][0][4].trim();
-            outFlow = data[0]['data'][0][5].trim();
-            chanCap = data[0]['data'][0][6].trim();
-            elevation = data[0]['data'][0][7].trim();
-            spillwayCrest = data[0]['data'][0][8].trim();
+                // log each piece of data into variables
+                locationID = data[0]['data'][0][0].trim();
+                baseLocationID = data[0]['data'][0][1].trim();
+                latLon = data[0]['data'][0][2].trim();
+                drainageArea = data[0]['data'][0][3].trim();
+                inFlow = data[0]['data'][0][4].trim();
+                outFlow = data[0]['data'][0][5].trim();
+                chanCap = data[0]['data'][0][6].trim();
+                elevation = data[0]['data'][0][7].trim();
+                spillwayCrest = data[0]['data'][0][8].trim();
 
-            console.log(
-              'Current water elevation at',
-              locationID,
-              'is',
-              elevation
-            );
-          });
+                console.log(
+                    'Current water elevation at',
+                    locationID,
+                    'is',
+                    elevation
+                );
+            });
 
         //declare variables for data we will pull from dam link
 
@@ -241,215 +243,199 @@
         //testing
         //create damData object to store data with its name
         var damData = {
-          damElevation: '',
-          dateAndTime: '',
-          currentStorage: '',
-          bottomConservationPool: '',
-          bottomFlood: '',
-          bottomNormal: '',
-          damSpillwayCrest: '',
-          streambed: '',
-          topConservationPool: '',
-          topDam: '',
-          topFloodControlPool: '',
-          topInactiveConservation: '',
-          topNormal: '',
-          topSurcharge: '',
-          bottomFloodStorage: '',
-          bottomNormalStorage: '',
-          topConservationPoolStorage: '',
-          topDamStorage: '',
-          topFloodControlStorage: '',
-          topInactiveConservationStorage: '',
-          topSurchargeStorage: '',
+            damElevation: '',
+            dateAndTime: '',
+            currentStorage: '',
+            bottomConservationPool: '',
+            bottomFlood: '',
+            bottomNormal: '',
+            damSpillwayCrest: '',
+            streambed: '',
+            topConservationPool: '',
+            topDam: '',
+            topFloodControlPool: '',
+            topInactiveConservation: '',
+            topNormal: '',
+            topSurcharge: '',
+            bottomFloodStorage: '',
+            bottomNormalStorage: '',
+            topConservationPoolStorage: '',
+            topDamStorage: '',
+            topFloodControlStorage: '',
+            topInactiveConservationStorage: '',
+            topSurchargeStorage: '',
         };
 
         var elevationChart;
 
         fetch(damLink)
-          .then((response) => response.json())
-          .then((data) => {
-            data = JSON.stringify(data);
-            data = JSON.parse(data);
+            .then((response) => response.json())
+            .then((data) => {
+                data = JSON.stringify(data);
+                data = JSON.parse(data);
 
-            // iterates through object and assigns each key with value(lake data)
-            for (let i = 0; i < Object.keys(damData).length; ++i) {
-              damData[Object.keys(damData)[i]] = data[0]['data'][i][1];
-            }
-
-            console.log(damData);
-          });
-
-
-          fetch(timeseriesLink)
-          .then((response) => response.json())
-          .then((data) => {
-            var chartData = [];
-            var dates = [];
-            var outflow = [];
-            var normalLevel = [];
-            var inflow = [];
-            data = JSON.stringify(data);
-            data = JSON.parse(data);
-
-            for (let i = 0; i < data[0]["Elev"].length; ++i) {
-                console.log(data[0]["Elev"][i]["value"]);
-                chartData.push(data[0]["Elev"][i]["value"]);
-                dates.push(data[0]["Elev"][i]["time"]);
-                normalLevel.push(damData['topNormal'].replace(" ft", ""));
-            }
-
-            for (let i = 0; i < data[2]["Outflow"].length; ++i) {
-                outflow.push(data[2]["Outflow"][i]["value"]);
-
-            }
-
-            for (let i = 0; i < data[1]["Inflow"].length; ++i) {
-              inflow.push(data[1]["Inflow"][i]["value"]);
-
-            }
-            console.log("inflow",inflow);
-            
-            console.log("normal level: ", normalLevel);
-            const ctx = document.getElementById('myChart');
-            const inflowOutflow = document.getElementById('myOtherChart');
-            var test = [1, 2 ,3];
-            var minScale = normalLevel[0] -2;
-  
-      elevationChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: dates,
-        datasets: [{
-          label: 'Water Elevation (ft)',
-          //yAxisID: 'y1',
-          data: chartData,
-          borderWidth: 2,
-          borderColor: "#808080",
-          backgroundColor: "#89CFF0",
-
-        },
-        {
-            type: 'line',
-            label: 'Desired Level',
-            borderColor: "#808080",
-            backgroundColor: "#FFA500",
-            borderWidth:.25,
-            //yAxisID: 'y2',
-            data: normalLevel,
-       }
-    ]
-      },
-      options: {
-        responsive: true,
-        title: {
-        display: true,
-        text: "Water Elevation at Lake Texoma",
-        },
-        plugins: {
-      //decimation: decimation,
-    },
-    scales: {
-            xAxes: [{
-                ticks: {
-                    display: false //this will remove only the label
+                // iterates through object and assigns each key with value(lake data)
+                for (let i = 0; i < Object.keys(damData).length; ++i) {
+                    damData[Object.keys(damData)[i]] = data[0]['data'][i][1];
                 }
-            }],
-            
-        },
-    pan: {
-        enabled: true,
-        mode: 'xy'
-    },
-    zoom: {
-        enabled: false,
-        mode: 'xy',
-        speed: 1,
-    threshold: 1,
-    sensitivity: 1
-    },}});
-      elevationChart = new Chart(inflowOutflow, {
-      type: 'line',
-      data: {
-        labels: dates,
-        datasets: [{
-          label: 'Outflow',
-          //yAxisID: 'y1',
-          data: outflow,
-          borderWidth: 2,
-          borderColor: "#808080",
-          backgroundColor: "#89CFF0",
 
-        },
-        {
-            type: 'line',
-            label: 'Inflow',
-            borderColor: "#808080",
-            backgroundColor: "#FFA500",
-            borderWidth:.25,
-                       //yAxisID: 'y2',
-            data: inflow,
-       }
-    ]
-      },
-      options: {
-        responsive: true,
-        title: {
-        display: true,
-        text: "Water Flow at Lake Texoma",
+                console.log(damData);
+            });
 
-        },
-        plugins: {
-      //decimation: decimation,
-    },
-        scales: {
-            xAxes: [{
-                ticks: {
-                    display: false //this will remove only the label
+
+        fetch(timeseriesLink)
+            .then((response) => response.json())
+            .then((data) => {
+                var chartData = [];
+                var dates = [];
+                var outflow = [];
+                var normalLevel = [];
+                var inflow = [];
+                data = JSON.stringify(data);
+                data = JSON.parse(data);
+
+                for (let i = 0; i < data[0]["Elev"].length; ++i) {
+                    console.log(data[0]["Elev"][i]["value"]);
+                    chartData.push(data[0]["Elev"][i]["value"]);
+                    dates.push(data[0]["Elev"][i]["time"]);
+                    normalLevel.push(damData['topNormal'].replace(" ft", ""));
                 }
-            }],
-            
-        },
-        pan: {
-        enabled: true,
-        mode: 'xy'
-    },
-        zoom: {
-        enabled: false,
-        mode: 'xy',
-        speed: 1,
-    threshold: 1,
-    sensitivity: 1
-    },
-      }
-          });      
-      console.log(damData);
-      var element = document.querySelector('div.card__details li');
-      var elementDate = document.getElementById("leftDate");
 
-      element.textContent = chartData.pop() + " ft";
-      elementDate.textContent = dates.pop();
+                for (let i = 0; i < data[2]["Outflow"].length; ++i) {
+                    outflow.push(data[2]["Outflow"][i]["value"]);
+
+                }
+
+                for (let i = 0; i < data[1]["Inflow"].length; ++i) {
+                    inflow.push(data[1]["Inflow"][i]["value"]);
+
+                }
+                console.log("inflow", inflow);
+
+                console.log("normal level: ", normalLevel);
+                const ctx = document.getElementById('myChart');
+                const inflowOutflow = document.getElementById('myOtherChart');
+                var test = [1, 2, 3];
+                var minScale = normalLevel[0] - 2;
+
+                elevationChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Water Elevation (ft)',
+                            //yAxisID: 'y1',
+                            data: chartData,
+                            borderWidth: 2,
+                            borderColor: "#808080",
+                            backgroundColor: "#89CFF0",
+
+                        },
+                        {
+                            type: 'line',
+                            label: 'Desired Level',
+                            borderColor: "#808080",
+                            backgroundColor: "#FFA500",
+                            borderWidth: .25,
+                            //yAxisID: 'y2',
+                            data: normalLevel,
+                        }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: "Water Elevation at Lake Texoma",
+                        },
+                        plugins: {
+                            //decimation: decimation,
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    display: false //this will remove only the label
+                                }
+                            }],
+
+                        },
+                        pan: {
+                            enabled: true,
+                            mode: 'xy'
+                        },
+                        zoom: {
+                            enabled: false,
+                            mode: 'xy',
+                            speed: 1,
+                            threshold: 1,
+                            sensitivity: 1
+                        },
+                    }
+                });
+                elevationChart = new Chart(inflowOutflow, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Outflow',
+                            //yAxisID: 'y1',
+                            data: outflow,
+                            borderWidth: 2,
+                            borderColor: "#808080",
+                            backgroundColor: "#89CFF0",
+
+                        },
+                        {
+                            type: 'line',
+                            label: 'Inflow',
+                            borderColor: "#808080",
+                            backgroundColor: "#FFA500",
+                            borderWidth: .25,
+                            //yAxisID: 'y2',
+                            data: inflow,
+                        }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: "Water Flow at Lake Texoma",
+
+                        },
+                        plugins: {
+                            //decimation: decimation,
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    display: false //this will remove only the label
+                                }
+                            }],
+
+                        },
+                        pan: {
+                            enabled: true,
+                            mode: 'xy'
+                        },
+                        zoom: {
+                            enabled: false,
+                            mode: 'xy',
+                            speed: 1,
+                            threshold: 1,
+                            sensitivity: 1
+                        },
+                    }
+                });
+                console.log(damData);
+                var element = document.querySelector('div.card__details li');
+                element.textContent = chartData.pop() + " ft";
 
 
-      resetZoomBtn = (elevationChart) => {
-      elevationChart.resetZoom()
-};
-});
-      </script>
-
-<div style="width: 50%; height: 50%;">
-  <canvas id="myChart"></canvas>
-    <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
-  </div>
-
-  <div style="width: 50%; height: 50%;">
-    <canvas id="myOtherChart"></canvas>
-      <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
-    </div>
-
-  
-  
- 
-  
+                resetZoomBtn = (elevationChart) => {
+                    elevationChart.resetZoom()
+                };
+            });
+    </script>
 
 </html>

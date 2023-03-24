@@ -185,12 +185,10 @@ body {
 
 .graphs__graph--1 {
   position: relative;
-  float: left;
   padding: 2rem;
   width: 100%; }
 
 .graphs__graph--2 {
-  float: right;
   position: relative;
   padding: 2rem;
   width: 100%; }
@@ -211,19 +209,19 @@ body {
     border-radius: 3px;
     box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.15);
     overflow: hidden; }
-    .card__side--front {
-      background-color: #FFFFFF; }
     .card__side--back {
+      background-image: linear-gradient(to right bottom, #fc031c, #520109); }
+    .card__side--front {
       transform: rotateY(180deg); }
-      .card__side--back-1 {
+      .card__side--front-1 {
         background-image: linear-gradient(to right bottom, #fc031c, #520109); }
-      .card__side--back-2 {
+      .card__side--front-2 {
         background-image: linear-gradient(to right bottom, #fc031c, #520109); }
-      .card__side--back-3 {
+      .card__side--front-3 {
         background-image: linear-gradient(to right bottom, #fc031c, #520109); }
-  .card:hover .card__side--front {
-    transform: rotateY(-180deg); }
   .card:hover .card__side--back {
+    transform: rotateY(-180deg); }
+  .card:hover .card__side--front {
     transform: rotateY(0deg); }
   .card__picture {
     background-size: cover;
@@ -298,10 +296,10 @@ body {
         height: auto;
         position: relative;
         box-shadow: none; }
-        .card__side--back {
+        .card__side--front {
           transform: rotateY(0);
           clip-path: polygon(0 15%, 100% 0, 100% 100%, 0 100%); }
-      .card:hover .card__side--front {
+      .card:hover .card__side--back {
         transform: rotateY(0deg); }
       .card__details {
         padding: 1rem 3rem; }
