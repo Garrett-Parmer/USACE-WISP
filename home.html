@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/icon-font.css" />
+    <link rel="stylesheet" href="css/home_style.css" />
 
+    <title>
+      United States Army Corps of Engineers | Water Information Sharing Program
+    </title>
+  </head>
 
     <link rel="stylesheet" href="css/icon-font.css">
     <link rel="stylesheet" href="css/style.css">
@@ -461,4 +467,50 @@
             });
     </script>
 
+</html>
+=======
+  <body>
+    <header></header>
+
+    <main>
+      <script>
+        const xhr = new XMLHttpRequest();
+        const testLink =
+          'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
+
+        //  xhr.open("GET", testLink);
+        //  //xhr.setRequestHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36");
+        //  xhr.setRequestHeader("Access-Control-Expose-Headers", "Access-Control-Allow-Origin,Access-Control-Allow-Credentials");
+        //  xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
+        //  xhr.setRequestHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, PUT, DELETE, OPTIONS");
+        //  xhr.setRequestHeader("Access-Control-Allow-Headers", "Origin, Content-Type, X-Auth-Token");
+
+        //  xhr.onload = function () {
+        //      console.log(xhr.response);
+        //  };
+
+        //  xhr.onerror = function () {
+        //      //handle errors
+        //      console.log("Error");
+        //  };
+        //  xhr.send();
+
+        console.log('hello world');
+        fetch(testLink)
+          .then((response) => response.json())
+          .then((data) => {
+            data = JSON.stringify(data);
+            data = JSON.parse(data);
+            var elevation = data[0]['data'][0][7].trim();
+            var lakeName = data[0]['data'][0][0].trim();
+            console.log(
+              'Current water elevation at ',
+              lakeName,
+              ' is ',
+              elevation
+            );
+          });
+      </script>
+    </main>
+  </body>
 </html>
