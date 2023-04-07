@@ -1,0 +1,15 @@
+.graphs {
+    &__graph {
+        &--1 {
+            position: relative;
+            padding: 2rem;
+            width: 100%;
+        }
+
+        &--2 {
+            position: relative;
+            padding: 2rem;
+            width: 100%;
+        }
+    }
+}

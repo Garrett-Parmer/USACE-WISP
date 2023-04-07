@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <link rel="stylesheet" href="css/icon-font.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <title>United States Army Corps of Engineers | Water Information Sharing Program</title>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header__logo-box">
+            <img src="css/img/USACE-Logo.png" alt="Logo" class="header__logo">
+        </div>
+
+        <div class="header__text-box">
+            <h1 class="heading-primary">
+                <span class="heading-primary--main">U.S. Army Corps of Engineers</span>
+                <span class="heading-primary--sub">Water Information Sharing Project</span>
+            </h1>
+        </div>
+    </header>
+
+    <section class="section-about">
+        <div class="u-center-text u-margin-bottom-big">
+            <h2 class="heading-secondary">About the Program</h2>
+        </div>
+        <div class="row">
+            <div class="col-1-of-2">
+                <h3 class="heading-tertiary">
+                    Giving you the information you need.
+                </h3>
+                <p class="paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, quod earum quasi
+                    tempora
+                    architecto quidem incidunt. Ipsam, et, ab fugiat voluptas aspernatur eos voluptatem atque mollitia
+                    repudiandae exercitationem soluta assumenda?</p>
+
+                <h3 class="heading-tertiary">
+                    Lakes across the nation.
+                </h3>
+                <p class="paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, quod earum quasi
+                    tempora
+                    architecto quidem incidunt. Ipsam, et, ab fugiat voluptas aspernatur eos voluptatem atque mollitia
+                    repudiandae exercitationem soluta assumenda?</p>
+            </div>
+            <div class="col-1-of-2">
+                <div class="composition">
+                    <img src="css/img/Family-Fishing.avif" alt="Photo 1"
+                        class="composition__photo composition__photo--p1">
+                    <img src="css/img/Fishing-Boat.avif" alt="Photo 2"
+                        class="composition__photo composition__photo--p2">
+                    <img src="css/img/Fishing-Waders.avif" alt="Photo 3"
+                        class="composition__photo composition__photo--p3">
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section class="section-lakesearch">
+        <div class="u-center-text u-margin-bottom-big">
+            <h2 class="heading-secondary">Find Your Lake Now!</h2>
+        </div>
+
+        <div class="u-center-text">
+            <input id="searchbar" onkeyup="search_script_placeholder()" type="text" name="search"
+                placeholder="Search lakes...">
+
+        </div>
+    </section>
+    <section class="graphs">
+        <div class="row">
+            <div class="col-1-of-2">
+                <div class="graphs__graph--1">
+                    <img src="/css/img/meme2.jpg" alt="">
+                </div>
+
+            </div>
+            <div class="col-1-of-2">
+                <div class="graphs__graph--2">
+                    <img src="/css/img/meme1.jpg" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1-of-2">
+                <div class="card">
+                    <div class="card__side card__side--front">
+                        <div class="card__picture card__picture--1">
+                            &nbsp;
+                        </div>
+                        <h4 class="card__heading">
+                            <span class="card__heading-span card__heading-span--1">
+                                Water Level (MSL)
+                            </span>
+                        </h4>
+                        <div class="card__details">
+                            <ul>
+                                <li>####</li>
+                                <li>(Mean Sea Level)</li>
+                                <li>Date/Time</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card__side card__side--back card__side--back-1">
+                        <div class="card__cta">
+                            <div class="card__price-box">
+                                <p class="card__price-only">Explanation title</p>
+                                <p class="card__price-value">Explanation here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1-of-2">
+                <div class="card">
+                    <div class="card__side card__side--front">
+                        <div class="card__picture card__picture--2">
+                            &nbsp;
+                        </div>
+                        <h4 class="card__heading">
+                            <span class="card__heading-span card__heading-span--2">
+                                Water Flow (cfs)
+                            </span>
+                        </h4>
+                        <div class="card__details">
+                            <ul>
+                                <li>####</li>
+                                <li>(Cubic Feet/second)</li>
+                                <li>Date/Time</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card__side card__side--back card__side--back-2">
+                        <div class="card__cta">
+                            <div class="card__price-box">
+                                <p class="card__price-only">Explanation Title</p>
+                                <p class="card__price-value">Explanation Here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+
+
+
+
+</html>

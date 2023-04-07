@@ -2,7 +2,7 @@
   "name": "water-information-sharing-program",
   "version": "1.0.0",
   "description": "Water information sharing program developed to disseminate information about the United State's many water sources to the public in a user-friendly format.",
-  "main": "home.html",
+  "main": "home.js",
   "scripts": {
     "compile:sass": "node-sass sass/main.scss css/style.css -w"
   },
@@ -14,6 +14,8 @@
   "author": "Garrett Parmer",
   "license": "ISC",
   "dependencies": {
+    "@amcharts/amcharts5": "^5.3.6",
+    "@amcharts/amcharts5-geodata": "^5.1.0",
     "node-sass": "^8.0.0"
   }
 }

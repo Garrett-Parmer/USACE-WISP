@@ -12,6 +12,463 @@
     </title>
   </head>
 
+    <link rel="stylesheet" href="css/icon-font.css">
+    <link rel="stylesheet" href="css/style.css">
+
+
+    <title>United States Army Corps of Engineers | Water Information Sharing Program</title>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="header__logo-box">
+            <img src="css/img/USACE-Logo.png" alt="Logo" class="header__logo">
+        </div>
+
+        <div class="header__text-box">
+            <h1 class="heading-primary">
+                <span class="heading-primary--main">U.S. Army Corps of Engineers</span>
+                <span class="heading-primary--sub">Water Information Sharing Project</span>
+            </h1>
+        </div>
+    </header>
+
+    <section class="section-about">
+        <div class="u-center-text u-margin-bottom-big">
+            <h2 class="heading-secondary">About the Program</h2>
+        </div>
+        <div class="row">
+            <div class="col-1-of-2">
+                <h3 class="heading-tertiary">
+                    Giving you the information you need.
+                </h3>
+                <p class="paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, quod earum quasi
+                    tempora
+                    architecto quidem incidunt. Ipsam, et, ab fugiat voluptas aspernatur eos voluptatem atque mollitia
+                    repudiandae exercitationem soluta assumenda?</p>
+
+                <h3 class="heading-tertiary">
+                    Lakes across the nation.
+                </h3>
+                <p class="paragraph">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex, quod earum quasi
+                    tempora
+                    architecto quidem incidunt. Ipsam, et, ab fugiat voluptas aspernatur eos voluptatem atque mollitia
+                    repudiandae exercitationem soluta assumenda?</p>
+            </div>
+            <div class="col-1-of-2">
+                <div class="composition">
+                    <img src="css/img/Family-Fishing.avif" alt="Photo 1"
+                        class="composition__photo composition__photo--p1">
+                    <img src="css/img/Fishing-Boat.avif" alt="Photo 2"
+                        class="composition__photo composition__photo--p2">
+                    <img src="css/img/Fishing-Waders.avif" alt="Photo 3"
+                        class="composition__photo composition__photo--p3">
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section class="section-lakesearch">
+        <div class="u-center-text u-margin-bottom-big">
+            <h2 class="heading-secondary">Find Your Lake Now!</h2>
+        </div>
+
+        <div class="u-center-text">
+            <input id="searchbar" onkeyup="search_script_placeholder()" type="text" name="search"
+                placeholder="Search lakes...">
+
+        </div>
+    </section>
+    <section class="graphs">
+        <div class="row">
+            <div class="col-1-of-2">
+                <div style="width: 100%; height: 100%;">
+                    <canvas id="myChart"></canvas>
+                    <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
+                </div>
+
+            </div>
+            <div class="col-1-of-2">
+                <div style="width: 100%; height: 100%;">
+                    <canvas id="myOtherChart"></canvas>
+                    <button onclick="resetZoomBtn(flowChart)">reset zoom</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1-of-2">
+                <div class="card">
+                    <div class="card__side card__side--front">
+                        <div class="card__picture card__picture--1">
+                            &nbsp;
+                        </div>
+                        <h4 class="card__heading">
+                            <span class="card__heading-span card__heading-span--1">
+                                Water Level (MSL)
+                            </span>
+                        </h4>
+                        <div class="card__details">
+                            <ul>
+                                <li>####</li>
+                                <li>Often referred to as stage and typically represented in feet
+                                    mean sea level.</li>
+                                <li>Date/Time</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card__side card__side--back card__side--back-1">
+                        <div class="card__cta">
+                            <div class="card__price-box">
+                                <p class="card__price-only">Water Level</p>
+                                <p class="card__price-value">Updating...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1-of-2">
+                <div class="card">
+                    <div class="card__side card__side--front">
+                        <div class="card__picture card__picture--2">
+                            &nbsp;
+                        </div>
+                        <h4 class="card__heading">
+                            <span class="card__heading-span card__heading-span--2">
+                                Water Flow (cfs)
+                            </span>
+                        </h4>
+                        <div class="card__details">
+                            <ul>
+                                <li>####</li>
+                                <li>The flow rate of water leaving the dam, measured in cubic feet
+                                    per second (cfs). The measurement parameter of how fast water is moving
+                                    referred to as mean water velocity and flow rate.</li>
+                                <li>Date/Time</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card__side card__side--back card__side--back-2">
+                        <div class="card__cta">
+                            <div class="card__price-box">
+                                <p class="card__price-only">Discharge</p>
+                                <p class="card__price-value">Updating...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.3"></script>
+    <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3"></script>
+    <script src="https://cdn.jsdelivr.net/npm/hammerjs@2.0.8"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-zoom@0.7.7"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css">
+
+
+
+    <script>
+        const testLink =
+            'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_loc_summary_json?p_location_id=2063051&p_source=CWMS&p_unit_system=EN&p_format=JSON';
+        const damLink =
+            'https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_dam_summary_json?p_location_id=2063051&p_unit_system=EN&p_format=JSON';
+        const timeseriesLink = "https://water.usace.army.mil/a2w/CWMS_CRREL.cwms_data_api.get_report_json?p_location_id=2063051&p_parameter_type=Flow%3AStor%3APrecip%3AStage%3AElev&p_last=1&p_last_unit=months&p_unit_system=EN&p_format=JSON";
+
+        //declare variables for data we will pull
+        var locationID;
+        var baseLocationID;
+        var latLon;
+        var drainageArea;
+        var inFlow;
+        var outFlow;
+        var chanCap;
+        var elevation;
+        var spillwayCrest;
+
+        fetch(testLink)
+            .then((response) => response.json())
+            .then((data) => {
+                data = JSON.stringify(data);
+                data = JSON.parse(data);
+
+                // log each piece of data into variables
+                locationID = data[0]['data'][0][0].trim();
+                baseLocationID = data[0]['data'][0][1].trim();
+                latLon = data[0]['data'][0][2].trim();
+                drainageArea = data[0]['data'][0][3].trim();
+                inFlow = data[0]['data'][0][4].trim();
+                outFlow = data[0]['data'][0][5].trim();
+                chanCap = data[0]['data'][0][6].trim();
+                elevation = data[0]['data'][0][7].trim();
+                spillwayCrest = data[0]['data'][0][8].trim();
+
+                console.log(
+                    'Current water elevation at',
+                    locationID,
+                    'is',
+                    elevation
+                );
+            });
+
+        //declare variables for data we will pull from dam link
+
+        var damElevation;
+        var dateAndTime;
+        var currentStorage;
+        var bottomConservationPool;
+        var bottomFlood;
+        var bottomNormal;
+        var damSpillwayCrest;
+        var streambed;
+        var topConservationPool;
+        var topDam;
+        var topFloodControlPool;
+        var topInactiveConservation;
+        var topNormal;
+        var topSurcharge;
+        var bottomFloodStorage;
+        var bottomNormalStorage;
+        var topConservationPoolStorage;
+        var topDamStorage;
+        var topFloodControlStorage;
+        var topInactiveConservationStorage;
+        var topSurchargeStorage;
+        var office;
+
+        //testing
+        //create damData object to store data with its name
+        var damData = {
+            damElevation: '',
+            dateAndTime: '',
+            currentStorage: '',
+            bottomConservationPool: '',
+            bottomFlood: '',
+            bottomNormal: '',
+            damSpillwayCrest: '',
+            streambed: '',
+            topConservationPool: '',
+            topDam: '',
+            topFloodControlPool: '',
+            topInactiveConservation: '',
+            topNormal: '',
+            topSurcharge: '',
+            bottomFloodStorage: '',
+            bottomNormalStorage: '',
+            topConservationPoolStorage: '',
+            topDamStorage: '',
+            topFloodControlStorage: '',
+            topInactiveConservationStorage: '',
+            topSurchargeStorage: '',
+        };
+
+        var elevationChart;
+
+        fetch(damLink)
+            .then((response) => response.json())
+            .then((data) => {
+                data = JSON.stringify(data);
+                data = JSON.parse(data);
+
+                // iterates through object and assigns each key with value(lake data)
+                for (let i = 0; i < Object.keys(damData).length; ++i) {
+                    damData[Object.keys(damData)[i]] = data[0]['data'][i][1];
+                }
+
+                console.log(damData);
+            });
+
+
+        fetch(timeseriesLink)
+            .then((response) => response.json())
+            .then((data) => {
+                var chartData = [];
+                var dates = [];
+                var outflow = [];
+                var normalLevel = [];
+                var inflow = [];
+                data = JSON.stringify(data);
+                data = JSON.parse(data);
+
+                for (let i = 0; i < data[0]["Elev"].length; ++i) {
+                    console.log(data[0]["Elev"][i]["value"]);
+                    chartData.push(data[0]["Elev"][i]["value"]);
+                    dates.push(data[0]["Elev"][i]["time"]);
+                    normalLevel.push(damData['topNormal'].replace(" ft", ""));
+                }
+
+                for (let i = 0; i < data[2]["Outflow"].length; ++i) {
+                    outflow.push(data[2]["Outflow"][i]["value"]);
+
+                }
+
+                for (let i = 0; i < data[1]["Inflow"].length; ++i) {
+                    inflow.push(data[1]["Inflow"][i]["value"]);
+
+                }
+                console.log("inflow", inflow);
+
+                console.log("normal level: ", normalLevel);
+                const ctx = document.getElementById('myChart');
+                const inflowOutflow = document.getElementById('myOtherChart');
+                var test = [1, 2, 3];
+                var minScale = normalLevel[0] - 2;
+
+                elevationChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Water Elevation (ft)',
+                            //yAxisID: 'y1',
+                            data: chartData,
+                            borderWidth: 2,
+                            borderColor: "#808080",
+                            backgroundColor: "#89CFF0",
+
+                        },
+                        {
+                            type: 'line',
+                            label: 'Desired Level',
+                            borderColor: "#808080",
+                            backgroundColor: "#FFA500",
+                            borderWidth: .25,
+                            //yAxisID: 'y2',
+                            data: normalLevel,
+                        }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: "Water Elevation at Lake Texoma",
+                        },
+                        plugins: {
+                            //decimation: decimation,
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    display: false //this will remove only the label
+                                }
+                            }],
+
+                        },
+                        pan: {
+                            enabled: true,
+                            mode: 'xy'
+                        },
+                        zoom: {
+                            enabled: false,
+                            mode: 'xy',
+                            speed: 1,
+                            threshold: 1,
+                            sensitivity: 1
+                        },
+                    }
+                });
+                flowChart = new Chart(inflowOutflow, {
+                    type: 'line',
+                    data: {
+                        labels: dates,
+                        datasets: [{
+                            label: 'Outflow',
+                            //yAxisID: 'y1',
+                            data: outflow,
+                            borderWidth: 2,
+                            borderColor: "#808080",
+                            backgroundColor: "#89CFF0",
+
+                        },
+                        {
+                            type: 'line',
+                            label: 'Inflow',
+                            borderColor: "#808080",
+                            backgroundColor: "#FFA500",
+                            borderWidth: .25,
+                            //yAxisID: 'y2',
+                            data: inflow,
+                        }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        title: {
+                            display: true,
+                            text: "Water Flow at Lake Texoma",
+
+                        },
+                        plugins: {
+                            //decimation: decimation,
+                        },
+                        scales: {
+                            xAxes: [{
+                                ticks: {
+                                    display: false //this will remove only the label
+                                }
+                            }],
+
+                        },
+                        pan: {
+                            enabled: true,
+                            mode: 'xy'
+                        },
+                        zoom: {
+                            enabled: false,
+                            mode: 'xy',
+                            speed: 1,
+                            threshold: 1,
+                            sensitivity: 1
+                        },
+                    }
+                });
+                console.log(damData);
+                
+                
+                var firstTitle = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(1) > div > div.card__side.card__side--back.card__side--back-1 > div > div > p.card__price-only');
+                var secondTitle = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--back.card__side--back-2 > div > div > p.card__price-only');
+                
+                var firstDescription = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(1) > div > div.card__side.card__side--back.card__side--back-1 > div > div > p.card__price-value');
+                var secondDescription = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--back.card__side--back-2 > div > div > p.card__price-value');
+                
+                var element = document.querySelector('div.card__details li');
+                var flowDate = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(3)');
+                var elevDate = document.querySelector("body > section.graphs > div:nth-child(2) > div:nth-child(1) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(3)");
+                var flowElement = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(1)');
+                flowElement.textContent = "Inflow: " + inflow.pop() + " CFS || Outflow: " + outflow.pop() + " CFS";
+                secondDescription.textContent = "Inflow: " + inflow.pop() + " CFS Outflow: " + outflow.pop() + " CFS";
+
+                element.textContent = chartData.pop() + " ft";
+                var latestDate = dates.pop();
+                var dateHolder = "Last updated: ";
+                flowDate.textContent = dateHolder + latestDate;
+                elevDate.textContent = dateHolder + latestDate;
+                firstTitle.textContent = "Water Level";
+                firstDescription.textContent = chartData.pop() + " ft";
+                
+
+                resetZoomBtn = (elevationChart) => {
+                    elevationChart.resetZoom()
+                };
+            });
+    </script>
+
+</html>
+=======
   <body>
     <header></header>
 
