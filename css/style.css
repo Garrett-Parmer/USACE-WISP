@@ -381,3 +381,8 @@ body {
   @media (max-width: 56.25em) {
     .section-lakesearch {
       padding: 20rem 0 10 rem 0; } }
+
+.graphs {
+  background-color: #f7f7f7;
+
+} 
