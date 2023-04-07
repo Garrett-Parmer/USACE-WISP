@@ -86,7 +86,7 @@
             <div class="col-1-of-2">
                 <div style="width: 100%; height: 100%;">
                     <canvas id="myOtherChart"></canvas>
-                    <button onclick="resetZoomBtn(elevationChart)">reset zoom</button>
+                    <button onclick="resetZoomBtn(flowChart)">reset zoom</button>
                 </div>
             </div>
         </div>
@@ -105,7 +105,8 @@
                         <div class="card__details">
                             <ul>
                                 <li>####</li>
-                                <li>(Mean Sea Level)</li>
+                                <li>Often referred to as stage and typically represented in feet
+                                    mean sea level.</li>
                                 <li>Date/Time</li>
                             </ul>
                         </div>
@@ -113,8 +114,8 @@
                     <div class="card__side card__side--back card__side--back-1">
                         <div class="card__cta">
                             <div class="card__price-box">
-                                <p class="card__price-only">Explanation title</p>
-                                <p class="card__price-value">Explanation here</p>
+                                <p class="card__price-only">Water Level</p>
+                                <p class="card__price-value">Updating...</p>
                             </div>
                         </div>
                     </div>
@@ -134,7 +135,9 @@
                         <div class="card__details">
                             <ul>
                                 <li>####</li>
-                                <li>(Cubic Feet/second)</li>
+                                <li>The flow rate of water leaving the dam, measured in cubic feet
+                                    per second (cfs). The measurement parameter of how fast water is moving
+                                    referred to as mean water velocity and flow rate.</li>
                                 <li>Date/Time</li>
                             </ul>
                         </div>
@@ -142,8 +145,8 @@
                     <div class="card__side card__side--back card__side--back-2">
                         <div class="card__cta">
                             <div class="card__price-box">
-                                <p class="card__price-only">Explanation Title</p>
-                                <p class="card__price-value">Explanation Here</p>
+                                <p class="card__price-only">Discharge</p>
+                                <p class="card__price-value">Updating...</p>
                             </div>
                         </div>
                     </div>
@@ -372,7 +375,7 @@
                         },
                     }
                 });
-                elevationChart = new Chart(inflowOutflow, {
+                flowChart = new Chart(inflowOutflow, {
                     type: 'line',
                     data: {
                         labels: dates,
@@ -428,16 +431,29 @@
                     }
                 });
                 console.log(damData);
+                
+                
+                var firstTitle = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(1) > div > div.card__side.card__side--back.card__side--back-1 > div > div > p.card__price-only');
+                var secondTitle = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--back.card__side--back-2 > div > div > p.card__price-only');
+                
+                var firstDescription = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(1) > div > div.card__side.card__side--back.card__side--back-1 > div > div > p.card__price-value');
+                var secondDescription = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--back.card__side--back-2 > div > div > p.card__price-value');
+                
                 var element = document.querySelector('div.card__details li');
                 var flowDate = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(3)');
                 var elevDate = document.querySelector("body > section.graphs > div:nth-child(2) > div:nth-child(1) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(3)");
                 var flowElement = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(1)');
                 flowElement.textContent = "Inflow: " + inflow.pop() + " CFS || Outflow: " + outflow.pop() + " CFS";
+                secondDescription.textContent = "Inflow: " + inflow.pop() + " CFS Outflow: " + outflow.pop() + " CFS";
+
                 element.textContent = chartData.pop() + " ft";
                 var latestDate = dates.pop();
-                flowDate.textContent = latestDate;
-                elevDate.textContent = latestDate;
-
+                var dateHolder = "Last updated: ";
+                flowDate.textContent = dateHolder + latestDate;
+                elevDate.textContent = dateHolder + latestDate;
+                firstTitle.textContent = "Water Level";
+                firstDescription.textContent = chartData.pop() + " ft";
+                
 
                 resetZoomBtn = (elevationChart) => {
                     elevationChart.resetZoom()
