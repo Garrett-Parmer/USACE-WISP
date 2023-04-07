@@ -429,7 +429,14 @@
                 });
                 console.log(damData);
                 var element = document.querySelector('div.card__details li');
+                var flowDate = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(3)');
+                var elevDate = document.querySelector("body > section.graphs > div:nth-child(2) > div:nth-child(1) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(3)");
+                var flowElement = document.querySelector('body > section.graphs > div:nth-child(2) > div:nth-child(2) > div > div.card__side.card__side--front > div.card__details > ul > li:nth-child(1)');
+                flowElement.textContent = "Inflow: " + inflow.pop() + " CFS || Outflow: " + outflow.pop() + " CFS";
                 element.textContent = chartData.pop() + " ft";
+                var latestDate = dates.pop();
+                flowDate.textContent = latestDate;
+                elevDate.textContent = latestDate;
 
 
                 resetZoomBtn = (elevationChart) => {
